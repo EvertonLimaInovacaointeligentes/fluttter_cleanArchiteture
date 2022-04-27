@@ -127,7 +127,7 @@ class _LoginPage2State extends State<LoginPage2> {
                     return ElevatedButton(
                       onPressed: () {
 
-                        var message = 'ok';
+                        var message = 'Bem vindo ';
                          _controller.getLogin2(
                             _txtLogin.text, _txtSenha.text);
 

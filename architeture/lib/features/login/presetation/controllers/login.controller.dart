@@ -17,10 +17,9 @@ class LoginController {
     var result = _userlogin(username, senha);
 
     result.fold(
-          (erro) => retorno = (erro as LoginDto),
-          (sucess) => retorno = (sucess as LoginDto),
+          (erro) => posts.value = (erro as LoginDto),
+          (sucess) => posts.value = (sucess as LoginDto),
     );
-   posts.value=retorno;
   }
 
   LoginDto getLogin(String username, String senha) {
