@@ -13,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState(){
     super.initState();
-    Future.delayed(Duration(seconds: 10),).then((value) => Navigator.of(context).pushReplacementNamed('/login'));
+    Future.delayed(Duration(seconds: 10),).then((value) => Navigator.of(context).pushReplacementNamed('/login2'));
   }
   @override
   Widget build(BuildContext context) {

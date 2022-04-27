@@ -1,18 +1,31 @@
 import 'package:architeture/features/login/data/dto/login.dto.dart';
+import 'package:architeture/features/login/domain/entities/login.entity.dart';
 import 'package:architeture/features/login/presetation/controllers/login.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class LoginPage2 extends StatelessWidget {
+class LoginPage2 extends StatefulWidget {
   LoginPage2({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage2> createState() => _LoginPage2State();
+}
+
+class _LoginPage2State extends State<LoginPage2> {
   final _formkey = GlobalKey<FormState>();
+
   final _txtLogin = TextEditingController();
+
   final _txtSenha = TextEditingController();
+
   var _controller = GetIt.I.get<LoginController>();
-  ValueNotifier<String> _login=ValueNotifier<String>("");
-  ValueNotifier<String> _senha=ValueNotifier<String>("");
+
+  ValueNotifier<String> _login = ValueNotifier<String>("");
+
+  ValueNotifier<String> _senha = ValueNotifier<String>("");
 
   String? loginDigitado;
+
   String? senhaDigitada;
 
   LoginDto? logou;
@@ -32,8 +45,6 @@ class LoginPage2 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ValueListenableBuilder(valueListenable: _login, builder: (_, value, __) => Text('Resultado: $value'),),
-              ValueListenableBuilder(valueListenable: _senha, builder: (_, value, __) => Text('Resultado: $value'),),
               SizedBox(
                 height: 20.0,
               ),
@@ -110,22 +121,25 @@ class LoginPage2 extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () {
-                 _login.value=_txtLogin.text;
-                 _senha.value=_txtSenha.text;
-                  var message = 'ok';
-                    logou = _controller.getLogin(_txtLogin.text, _txtSenha.text);
+              ValueListenableBuilder<LoginEntity?>(
+                  valueListenable: _controller.posts,
+                  builder: (context, LoginEntity? posts, __) {
+                    return ElevatedButton(
+                      onPressed: () {
 
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(message + logou!.username + "!")));
-                    Future.delayed(Duration(seconds: 5)).whenComplete(
-                          () => Navigator.of(context).pushNamed("/home"),
+                        var message = 'ok';
+                         _controller.getLogin2(
+                            _txtLogin.text, _txtSenha.text);
+
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(message + _controller.postsCarregado.username + "!")));
+                        Future.delayed(Duration(seconds: 5)).whenComplete(
+                              () => Navigator.of(context).pushReplacementNamed("/home"),
+                        );
+                      },
+                      child: Text('Acessar'),
                     );
-
-                },
-                child: Text('Acessar'),
-              ),
+                  }),
             ],
           ),
           // ),
